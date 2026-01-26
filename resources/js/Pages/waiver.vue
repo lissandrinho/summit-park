@@ -3,12 +3,9 @@ import { Head, useForm } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { ref, onMounted } from 'vue';
 
-// RECIBIMOS LA RESERVA PARA SABER EL CUPO (opcional)
+// RECIBIMOS LA RESERVA PARA SABER EL CUPO
 const props = defineProps({
-    booking: {
-        type: Object,
-        default: null
-    }
+    booking: Object 
 });
 
 // --- LÓGICA DE FIRMA (CANVAS) ---
@@ -96,23 +93,14 @@ const form = useForm({
 
 // GESTIÓN DINÁMICA DE MENORES
 const addMinor = () => {
-    if (props.booking) {
-        // Calculamos total: 1 Adulto + menores actuales
-        const totalActual = 1 + form.minors.length;
-        
-        // Solo permitimos agregar si hay cupo en la reserva
-        if (totalActual < props.booking.jumpers) {
-            form.minors.push({ name: '', document_id: '', birth_date: '' });
-        } else {
-            alert(`Tu reserva es para ${props.booking.jumpers} personas. No puedes agregar más saltadores.`);
-        }
+    // Calculamos total: 1 Adulto + menores actuales
+    const totalActual = 1 + form.minors.length;
+    
+    // Solo permitimos agregar si hay cupo en la reserva
+    if (totalActual < props.booking.jumpers) {
+        form.minors.push({ name: '', document_id: '', birth_date: '' });
     } else {
-        // Sin booking, permitimos agregar menores libremente (máximo 10)
-        if (form.minors.length < 10) {
-            form.minors.push({ name: '', document_id: '', birth_date: '' });
-        } else {
-            alert('Máximo 10 menores permitidos.');
-        }
+        alert(`Tu reserva es para ${props.booking.jumpers} personas. No puedes agregar más saltadores.`);
     }
 };
 
@@ -145,8 +133,7 @@ const submit = () => {
                     
                     <div class="mb-10 text-center">
                         <h2 class="text-3xl md:text-4xl font-black text-white uppercase mb-2 tracking-tight">Deslinde de Responsabilidad</h2>
-                        <p v-if="props.booking" class="text-orange-500 font-bold text-sm uppercase">Reserva para {{ props.booking.jumpers }} saltadores</p>
-                        <p v-else class="text-orange-500 font-bold text-sm uppercase">Firma de Waiver Independiente</p>
+                        <p class="text-orange-500 font-bold text-sm uppercase">Reserva para {{ props.booking.jumpers }} saltadores</p>
                     </div>
 
                     <form @submit.prevent="submit" class="space-y-8">
@@ -162,7 +149,7 @@ const submit = () => {
                             <div class="flex justify-between items-center border-b border-gray-700 pb-2">
                                 <h3 class="text-white font-bold uppercase text-xs">Menores a Cargo ({{ form.minors.length }})</h3>
                                 <button 
-                                    v-if="!props.booking || (form.minors.length + 1) < props.booking.jumpers"
+                                    v-if="(form.minors.length + 1) < props.booking.jumpers"
                                     type="button" 
                                     @click="addMinor" 
                                     class="text-[10px] bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-lg font-black uppercase transition"

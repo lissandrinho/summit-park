@@ -57,16 +57,8 @@ Route::get('/preguntas-frecuentes', function () {
 // Ruta principal de waiver - redirige a reserva si no hay booking
 Route::redirect('/waiver', '/reserva')->name('waiver');
 
-// Ruta para firmar waiver - booking es opcional
-Route::get('/waiver/firmar/{booking?}', function ($bookingId = null) {
-    $booking = null;
-    if ($bookingId) {
-        $booking = Booking::find($bookingId);
-        if (!$booking) {
-            return redirect()->route('booking')->with('error', 'Reserva no encontrada. Por favor, crea una nueva reserva.');
-        }
-    }
-    
+// Ruta para firmar waiver - requiere booking_id
+Route::get('/waiver/firmar/{booking}', function (Booking $booking) {
     return Inertia::render('waiver', [
         'booking' => $booking
     ]); 
