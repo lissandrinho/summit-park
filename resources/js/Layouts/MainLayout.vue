@@ -6,11 +6,13 @@ const showingNavigationDropdown = ref(false);
 const showReservationModal = ref(false);
 const page = usePage();
 
+// AGREGADO 'Contacto' AL ARRAY DE NAVEGACIÓN
 const navLinks = [
     { name: 'Inicio', route: 'home' },
     { name: 'Nosotros', route: 'about' },
     { name: 'Actividades', route: 'activities' },
     { name: 'Precios', route: 'prices' },
+    { name: 'Contacto', route: 'contact' }, // <-- NUEVO BOTÓN
 ];
 </script>
 
@@ -54,7 +56,7 @@ const navLinks = [
                             <Link :href="route('register')" class="text-gray-300 hover:text-white font-bold text-xs uppercase tracking-wider transition">Registrarse</Link>
                         </div>
 
-                        <Link :href="route('waiver')" class="bg-white text-gray-900 px-4 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-gray-200 transition shadow-[0_0_15px_rgba(255,255,255,0.3)] flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <Link :href="route('rules')" class="bg-white text-gray-900 px-4 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-gray-200 transition shadow-[0_0_15px_rgba(255,255,255,0.3)] flex items-center gap-2 transform hover:-translate-y-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                             <span class="hidden xl:inline">Firmar</span> Waiver
                         </Link>
@@ -86,7 +88,10 @@ const navLinks = [
                         </template>
                     </div>
                     <div class="mt-4 pt-4 pb-6 border-t border-gray-800">
-                        <Link :href="route('waiver')" class="flex justify-center items-center gap-2 bg-white text-gray-900 py-3 rounded-lg font-black uppercase text-xs tracking-widest">Waiver</Link>
+                        <Link :href="route('rules')" class="flex justify-center items-center gap-2 bg-white text-gray-900 py-3 rounded-lg font-black uppercase text-xs tracking-widest">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                            Firmar Waiver
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -108,7 +113,6 @@ const navLinks = [
                     <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
             </div>
-            
             <span class="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-white text-gray-900 text-xs font-bold uppercase px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-lg">
                 Reservar Ahora
             </span>
@@ -129,6 +133,17 @@ const navLinks = [
                 </div>
 
                 <div class="space-y-4">
+                    <Link :href="route('booking')" @click="showReservationModal = false" class="flex items-center gap-4 bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-2xl transition-all duration-300 group shadow-lg hover:shadow-orange-500/30">
+                        <div class="bg-white/20 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="font-black uppercase text-sm">Reserva Web</p>
+                            <p class="text-xs text-white/90">Selecciona fecha y hora aquí</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                    </Link>
+
                     <a href="https://wa.me/59897104037?text=Hola%20Summit!%20Quisiera%20reservar%20turnos%20para%20saltar%20%F0%9F%A6%98" target="_blank" class="flex items-center gap-4 bg-[#25D366] hover:bg-[#20bd5a] text-white p-4 rounded-2xl transition-all duration-300 group shadow-lg">
                         <div class="bg-white/20 p-2 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
@@ -191,7 +206,7 @@ const navLinks = [
                     <div>
                         <h3 class="text-white font-black uppercase tracking-widest mb-6 text-sm">Seguridad</h3>
                         <ul class="space-y-4 text-sm text-gray-400">
-                            <li><Link :href="route('waiver')" class="hover:text-orange-500 transition">Firmar Waiver</Link></li>
+                            <li><Link :href="route('rules')" class="hover:text-orange-500 transition">Firmar Waiver</Link></li>
                             <li><Link :href="route('rules')" class="hover:text-orange-500 transition">Reglas del Parque</Link></li>
                             <li><Link :href="route('faqs')" class="hover:text-orange-500 transition">Preguntas Frecuentes</Link></li>
                             <li><Link :href="route('contact')" class="hover:text-orange-500 transition">Contacto</Link></li>

@@ -3,64 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Waiver;
-use App\Models\Booking; // Importante para la validación
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class WaiverController extends Controller
 {
+    public function create()
+    {
+        return inertia('waiver', ['booking' => null]);
+    }
+
     public function store(Request $request)
     {
-        // 1. Validar los datos incluyendo el array de menores
+        // 1. Validar
         $validated = $request->validate([
-            // Vínculo con la reserva
-            'booking_id' => 'required|exists:bookings,id',
-
-            // Datos del Adulto Responsable
             'full_name' => 'required|string|max:255',
-            'document_id' => 'required|string|max:50',
+            'document_id' => 'required|string|max:20',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'birth_date' => 'required|date',
-
-            // Lógica Grupal: Ahora es un array de menores
-            'minors' => 'nullable|array', 
-            'minors.*.name' => 'required|string|max:255',
-            'minors.*.document_id' => 'required|string|max:50',
-            'minors.*.birth_date' => 'required|date',
-
-            // Legales
             'signature' => 'required|string', 
             'terms_accepted' => 'accepted',
+            'minors' => 'nullable|array|max:3',
+            'minors.*.name' => 'required|string|max:255',
+            'minors.*.document_id' => 'required|string|max:20',
         ]);
 
-        try {
-          
-            $booking = Booking::findOrFail($request->booking_id);
+        // 2. Crear Waiver (Booking ID es null por ahora)
+        $waiver = Waiver::create([
+            'booking_id' => null, 
+            'full_name' => $validated['full_name'],
+            'document_id' => $validated['document_id'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'birth_date' => $validated['birth_date'],
+            'minors' => $validated['minors'] ?? [], 
+            'signature' => $validated['signature'],
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+        ]);
 
-            $totalInWaiver = 1 + count($request->get('minors', []));
+        // 3. Calcular Jumpers
+        $totalJumpers = 1 + count($validated['minors'] ?? []);
 
-
-            if ($totalInWaiver > $booking->jumpers) {
-                return back()->withErrors([
-                    'error' => "Este deslinde cubre a {$totalInWaiver} personas, pero tu reserva es solo para {$booking->jumpers}. Por favor, ajusta los menores o contacta a soporte."
-                ]);
-            }
-
-            // 3. Preparar datos para guardar
-            $validated['ip_address'] = $request->ip();
-
-            $validated['minors'] = json_encode($request->minors);
-
-
-            Waiver::create($validated);
-
-        
-            return to_route('booking.success', $booking->id);
-
-        } catch (\Exception $e) {
-            Log::error('Error guardando waiver grupal: ' . $e->getMessage());
-            return back()->withErrors(['error' => 'Error en el servidor al procesar la firma.']);
-        }
+        // --- AQUÍ ESTABA EL ERROR ---
+        // ANTES: return to_route('home');
+        // AHORA: Redirigimos al Booking pasando el ID del waiver
+        return to_route('booking.create', [
+            'waiver_id' => $waiver->id,
+            'jumpers' => $totalJumpers
+        ]);
     }
 }

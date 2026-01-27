@@ -23,7 +23,7 @@ import MainLayout from '@/Layouts/MainLayout.vue';
                         Reglas del <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Parque</span>
                     </h1>
                     <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                        Para garantizar una experiencia segura y divertida para todos, es obligatorio cumplir con las siguientes normas.
+                        Para garantizar una experiencia segura y divertida para todos, es obligatorio leer y aceptar las siguientes normas antes de ingresar.
                     </p>
                 </div>
 
@@ -119,8 +119,9 @@ import MainLayout from '@/Layouts/MainLayout.vue';
                         <Link :href="route('home')" class="px-8 py-4 rounded-full border border-gray-600 text-white font-bold hover:bg-gray-800 transition">
                             Volver al Inicio
                         </Link>
+                        
                         <Link :href="route('waiver.create')" class="px-10 py-4 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-black uppercase tracking-widest hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300">
-                            Firmar Waiver
+                            Acepto y Firmar
                         </Link>
                     </div>
                 </div>
