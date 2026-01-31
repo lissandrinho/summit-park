@@ -14,10 +14,9 @@ const activeTab = ref('operaciones');
 
 // --- FUNCIONES DE OPERACIONES ---
 const changeStatus = (bookingId, newStatus) => {
-    // Confirmación visual para evitar errores
     const actions = {
-        'checked_in': '¿Ingresar clientes al parque?',
-        'completed': '¿Marcar salida (Finalizar)?',
+        'checked_in': '¿Confirmar ingreso y cobro?',
+        'completed': '¿Confirmar salida del grupo?',
         'cancelled': '¿Cancelar esta reserva?'
     };
     
@@ -37,7 +36,7 @@ const getStatusColor = (status) => {
 };
 
 const getStatusLabel = (status) => {
-    const labels = { pending: 'Pendiente', checked_in: 'EN PISTA', completed: 'Finalizado', cancelled: 'Cancelado' };
+    const labels = { pending: 'Pendiente Pago', checked_in: 'EN PISTA', completed: 'Finalizado', cancelled: 'Cancelado' };
     return labels[status] || status;
 };
 
@@ -87,19 +86,19 @@ const deleteAttraction = (id) => { if(confirm('¿Borrar?')) router.delete(route(
                 <div v-if="activeTab === 'operaciones'" class="bg-gray-800 rounded-3xl border border-gray-700 shadow-2xl overflow-hidden animate-in fade-in">
                     <div class="p-6 border-b border-gray-700 bg-gray-800/50 flex justify-between items-center">
                         <h3 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                            📋 Control de Pista
+                            📋 Control de Taquilla
                         </h3>
-                        <span class="text-xs text-gray-500 uppercase font-bold">Últimos 50 registros</span>
+                        <span class="text-xs text-gray-500 uppercase font-bold">Últimos registros</span>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-400">
                             <thead class="text-xs text-gray-500 uppercase bg-gray-900/50">
                                 <tr>
                                     <th class="px-6 py-4">Estado</th>
-                                    <th class="px-6 py-4">A Nombre De</th>
+                                    <th class="px-6 py-4">Titular (Waiver)</th>
                                     <th class="px-6 py-4">Detalle Venta</th>
-                                    <th class="px-6 py-4">Pago ($)</th>
-                                    <th class="px-6 py-4">Fecha/Turno</th>
+                                    <th class="px-6 py-4">Total a Cobrar</th>
+                                    <th class="px-6 py-4">Turno Agendado</th>
                                     <th class="px-6 py-4 text-right">Acciones</th>
                                 </tr>
                             </thead>
@@ -114,51 +113,60 @@ const deleteAttraction = (id) => { if(confirm('¿Borrar?')) router.delete(route(
 
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full bg-gray-700 border border-gray-600 flex items-center justify-center text-xs font-black text-white">
+                                            <div class="w-10 h-10 rounded-full bg-gray-700 border border-gray-600 flex items-center justify-center text-sm font-black text-white shadow-md">
                                                 {{ booking.customer_name.charAt(0) }}
                                             </div>
                                             <div>
                                                 <div class="text-white font-bold text-sm">{{ booking.customer_name }}</div>
                                                 <div class="text-[10px] text-gray-500">{{ booking.email }}</div>
-                                                <div v-if="!booking.waiver_id" class="text-[9px] text-red-400 font-bold uppercase mt-1 animate-pulse">⚠️ Falta Firmar</div>
+                                                <div v-if="!booking.waiver_id" class="flex items-center gap-1 text-[10px] text-red-400 font-bold uppercase mt-1 animate-pulse bg-red-500/10 px-2 py-0.5 rounded w-fit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                                                    Falta Firmar
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
 
                                     <td class="px-6 py-4">
                                         <div class="flex flex-col gap-1">
-                                            <span class="text-white font-bold flex items-center gap-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-500" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" /></svg>
+                                            <div class="flex items-center gap-2 text-white font-bold">
+                                                <span class="bg-blue-600/20 text-blue-400 px-2 py-0.5 rounded text-xs">Pax</span>
                                                 {{ booking.jumpers }} Personas
-                                            </span>
-                                            <span class="text-xs text-blue-400 font-bold flex items-center gap-2 bg-blue-400/10 px-2 py-1 rounded w-fit">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            </div>
+                                            <div class="flex items-center gap-2 text-gray-400 text-xs">
+                                                <span class="bg-gray-700 px-2 py-0.5 rounded text-[10px] uppercase">Duración</span>
                                                 {{ booking.duration }} Minutos
-                                            </span>
+                                            </div>
                                         </div>
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        <div class="text-emerald-400 font-black text-lg tracking-tight">
-                                            ${{ booking.total_price }}
+                                        <div class="text-emerald-400 font-black text-xl tracking-tight flex items-center gap-1">
+                                            <span>$</span>{{ booking.total_price }}
                                         </div>
-                                        <div class="text-[9px] text-emerald-500/50 uppercase font-bold">Pagado</div>
+                                        <div class="text-[9px] text-gray-500 uppercase font-bold tracking-wide">Monto Final IVA Inc.</div>
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        <div class="text-white font-bold">{{ booking.time_slot }}</div>
-                                        <div class="text-[10px] uppercase text-gray-500 font-bold">{{ booking.date }}</div>
+                                        <div class="flex flex-col">
+                                            <span class="text-white font-bold text-lg">{{ booking.time_slot }}</span>
+                                            <span class="text-[10px] uppercase text-gray-500 font-bold bg-gray-900 px-2 py-1 rounded w-fit">{{ booking.date }}</span>
+                                        </div>
                                     </td>
 
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex justify-end gap-2">
-                                            <button v-if="booking.status === 'pending'" @click="changeStatus(booking.id, 'checked_in')" title="Check-In" class="bg-green-600 hover:bg-green-500 text-white p-2 rounded-lg shadow-lg hover:scale-105 transition">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
+                                            <button v-if="booking.status === 'pending'" @click="changeStatus(booking.id, 'checked_in')" title="Cobrar e Ingresar" class="group bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-xl shadow-lg hover:shadow-green-500/30 transition-all flex items-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <span class="text-xs font-black uppercase hidden md:inline">Check-In</span>
                                             </button>
-                                            <button v-if="booking.status === 'checked_in'" @click="changeStatus(booking.id, 'completed')" title="Finalizar" class="bg-blue-600 hover:bg-blue-500 text-white p-2 rounded-lg shadow-lg hover:scale-105 transition">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                                            
+                                            <button v-if="booking.status === 'checked_in'" @click="changeStatus(booking.id, 'completed')" title="Marcar Salida" class="group bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all flex items-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                                                <span class="text-xs font-black uppercase hidden md:inline">Salida</span>
                                             </button>
-                                            <button v-if="booking.status !== 'cancelled' && booking.status !== 'completed'" @click="changeStatus(booking.id, 'cancelled')" title="Cancelar" class="bg-gray-700 hover:bg-red-600 text-gray-400 hover:text-white p-2 rounded-lg transition">
+                                            
+                                            <button v-if="booking.status !== 'cancelled' && booking.status !== 'completed'" @click="changeStatus(booking.id, 'cancelled')" title="Cancelar Reserva" class="bg-gray-700 hover:bg-red-600 text-gray-400 hover:text-white p-2 rounded-xl transition hover:shadow-red-600/30">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                             </button>
                                         </div>

@@ -69,33 +69,36 @@ Route::post('/reserva/guardar', [BookingController::class, 'store'])->name('book
 
 // 3. ÉXITO (Confirmación final)
 Route::get('/reserva/exito/{booking}', function (Booking $booking) {
-    // CORRECCIÓN CRÍTICA: Cargamos la relación 'waiver' para mostrar los nombres en el ticket
+    // Cargamos la relación 'waiver' para mostrar los nombres en el ticket
     return Inertia::render('BookingSuccess', [ 
         'booking' => $booking->load('waiver') 
     ]);
 })->name('booking.success');
 
 
-// --- DASHBOARD (Área Privada) ---
-
+// --- DASHBOARD (INTELIGENTE) ---
+// El middleware 'auth' solo verifica que esté logueado.
+// El DashboardController decide si muestra la vista Admin o Cliente.
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 
-// --- ADMINISTRACIÓN ---
-Route::middleware(['auth', 'verified'])->group(function () {
-    // Gestión de Pases (Precios)
-    Route::post('/admin/activities', [ActivityController::class, 'store'])->name('admin.activities.store');
-    Route::patch('/admin/activities/{activity}/toggle', [ActivityController::class, 'toggle'])->name('admin.activities.toggle');
-    Route::delete('/admin/activities/{activity}', [ActivityController::class, 'destroy'])->name('admin.activities.destroy');
+// --- ZONA ADMINISTRATIVA (PROTEGIDA) ---
+// Aquí aplicamos el middleware 'admin' que creamos.
+// Si un cliente intenta entrar aquí, será rebotado.
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(function () {
+    
+    // 1. Gestión de Pases (Precios)
+    Route::post('/activities', [ActivityController::class, 'store'])->name('admin.activities.store');
+    Route::delete('/activities/{activity}', [ActivityController::class, 'destroy'])->name('admin.activities.destroy');
 
-    // Gestión de Atracciones (Marketing)
-    Route::post('/admin/attractions', [ActivityController::class, 'storeAttraction'])->name('admin.attractions.store');
-    Route::delete('/admin/attractions/{attraction}', [ActivityController::class, 'destroyAttraction'])->name('admin.attractions.destroy');
+    // 2. Gestión de Atracciones (Marketing)
+    Route::post('/attractions', [ActivityController::class, 'storeAttraction'])->name('admin.attractions.store');
+    Route::delete('/attractions/{attraction}', [ActivityController::class, 'destroyAttraction'])->name('admin.attractions.destroy');
 
-    // Estado de Reserva (Operaciones)
-    Route::patch('/reserva/{booking}/estado', [BookingController::class, 'updateStatus'])->name('booking.status');
+    // 3. Operaciones (Solo el admin puede cambiar estados como Check-in/Check-out)
+    Route::patch('/booking/{booking}/status', [BookingController::class, 'updateStatus'])->name('booking.status');
 });
 
 

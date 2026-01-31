@@ -6,18 +6,18 @@ const showingNavigationDropdown = ref(false);
 const showReservationModal = ref(false);
 const page = usePage();
 
-// AGREGADO 'Contacto' AL ARRAY DE NAVEGACIÓN
+// 1. CAMBIO DE ORDEN EN EL MENÚ
 const navLinks = [
     { name: 'Inicio', route: 'home' },
-    { name: 'Nosotros', route: 'about' },
     { name: 'Actividades', route: 'activities' },
     { name: 'Precios', route: 'prices' },
-    { name: 'Contacto', route: 'contact' }, // <-- NUEVO BOTÓN
+    { name: 'Nosotros', route: 'about' },
+    { name: 'Contacto', route: 'contact' },
 ];
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-900 text-white font-sans selection:bg-orange-500 selection:text-white relative">
+    <div class="min-h-screen bg-gray-900 text-white font-sans selection:bg-orange-500 selection:text-white relative flex flex-col">
         
         <nav class="fixed w-full z-40 transition-all duration-300 bg-gray-900/90 backdrop-blur-md border-b border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,7 +97,7 @@ const navLinks = [
             </div>
         </nav>
 
-        <main class="pt-24">
+        <main class="flex-grow pt-24">
             <slot />
         </main>
 
@@ -133,7 +133,7 @@ const navLinks = [
                 </div>
 
                 <div class="space-y-4">
-                    <Link :href="route('booking')" @click="showReservationModal = false" class="flex items-center gap-4 bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-2xl transition-all duration-300 group shadow-lg hover:shadow-orange-500/30">
+                    <Link :href="route('booking.create')" @click="showReservationModal = false" class="flex items-center gap-4 bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-2xl transition-all duration-300 group shadow-lg hover:shadow-orange-500/30">
                         <div class="bg-white/20 p-2 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                         </div>
@@ -173,63 +173,98 @@ const navLinks = [
             </div>
         </div>
 
-        <footer class="bg-gray-950 border-t border-gray-800 pt-20 pb-8 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500"></div>
-            <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="flex justify-center mb-16">
-                    <Link :href="route('home')" class="hover:scale-105 transition-transform duration-500">
-                        <img src="/images/Summit-Logo-full-white.png" alt="Summit Park Footer Logo" class="h-32 md:h-40 w-auto opacity-80 hover:opacity-100 transition-opacity" />
-                    </Link>
-                </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 text-center md:text-left">
-                    <div class="space-y-6">
-                        <h3 class="text-white font-black uppercase tracking-widest mb-4 text-sm">Sobre Summit</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">El parque de trampolines más extremo de Uruguay. Desafía la gravedad, supera tus límites y diviértete como nunca.</p>
-                        <div class="flex justify-center md:justify-start gap-3">
-                            <a href="https://instagram.com/summituruguay" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gradient-to-tr hover:from-purple-500 hover:to-orange-500 hover:text-white transition-all duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                            </a>
-                            <a href="https://facebook.com/summituruguay" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-white font-black uppercase tracking-widest mb-6 text-sm">El Parque</h3>
-                        <ul class="space-y-4 text-sm text-gray-400">
-                            <li><Link :href="route('home')" class="hover:text-orange-500 transition">Inicio</Link></li>
-                            <li><Link :href="route('about')" class="hover:text-orange-500 transition">Nosotros</Link></li>
-                            <li><Link :href="route('activities')" class="hover:text-orange-500 transition">Actividades</Link></li>
-                            <li><Link :href="route('prices')" class="hover:text-orange-500 transition">Precios y Membresías</Link></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-white font-black uppercase tracking-widest mb-6 text-sm">Seguridad</h3>
-                        <ul class="space-y-4 text-sm text-gray-400">
-                            <li><Link :href="route('rules')" class="hover:text-orange-500 transition">Firmar Waiver</Link></li>
-                            <li><Link :href="route('rules')" class="hover:text-orange-500 transition">Reglas del Parque</Link></li>
-                            <li><Link :href="route('faqs')" class="hover:text-orange-500 transition">Preguntas Frecuentes</Link></li>
-                            <li><Link :href="route('contact')" class="hover:text-orange-500 transition">Contacto</Link></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-white font-black uppercase tracking-widest mb-6 text-sm">Encuéntranos</h3>
-                        <ul class="space-y-4 text-sm text-gray-400 flex flex-col items-center md:items-start">
-                            <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-orange-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <span>Dr. Martín Aguirre 4148<br>Villa Española, Montevideo</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                                <span>+598 9710 4037</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="border-t border-gray-800 pt-8 text-center">
-                    <p class="text-gray-600 text-xs uppercase tracking-widest">&copy; {{ new Date().getFullYear() }} Summit Trampoline Park Uruguay. Todos los derechos reservados.</p>
+        <footer class="bg-gray-950 border-t border-gray-800 pt-24 pb-12 relative overflow-hidden mt-auto">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500"></div>
+    
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <div class="grid lg:grid-cols-5 gap-12 lg:gap-8 mb-20 text-center lg:text-left">
+            
+            <div class="lg:col-span-2 flex flex-col items-center lg:items-start space-y-6">
+                <Link :href="route('home')" class="hover:scale-105 transition-transform duration-500 block">
+                    <img src="/images/Summit-Logo-full-white.png" alt="Summit Park Footer Logo" class="h-24 w-auto opacity-90 hover:opacity-100 transition-opacity" />
+                </Link>
+                <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                    El parque de trampolines más extremo de Uruguay. Desafía la gravedad, supera tus límites y diviértete como nunca antes.
+                </p>
+                <div class="flex gap-4 pt-2">
+                    <a href="https://instagram.com/summituruguay" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500 hover:bg-purple-500/20 transition-all duration-300 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="https://facebook.com/summituruguay" target="_blank" class="w-10 h-10 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-600 hover:bg-blue-600/20 transition-all duration-300 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
                 </div>
             </div>
-        </footer>
+
+            <div class="space-y-6">
+                <h3 class="text-white font-black uppercase tracking-widest text-xs border-b border-gray-800 pb-2 inline-block lg:block">Explora</h3>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><Link :href="route('home')" class="hover:text-orange-500 transition-colors">Inicio</Link></li>
+                    <li><Link :href="route('about')" class="hover:text-orange-500 transition-colors">Nosotros</Link></li>
+                    <li><Link :href="route('activities')" class="hover:text-orange-500 transition-colors">Actividades</Link></li>
+                    <li><Link :href="route('prices')" class="hover:text-orange-500 transition-colors">Precios</Link></li>
+                </ul>
+            </div>
+
+            <div class="space-y-6">
+                <h3 class="text-white font-black uppercase tracking-widest text-xs border-b border-gray-800 pb-2 inline-block lg:block">Ayuda</h3>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><Link :href="route('rules')" class="hover:text-orange-500 transition-colors">Reglas del Parque</Link></li>
+                    <li><Link :href="route('rules')" class="hover:text-orange-500 transition-colors">Firmar Waiver</Link></li>
+                    <li><Link :href="route('faqs')" class="hover:text-orange-500 transition-colors">Preguntas Frecuentes</Link></li>
+                    <li><Link :href="route('contact')" class="hover:text-orange-500 transition-colors">Contacto</Link></li>
+                </ul>
+            </div>
+
+            <div class="space-y-6">
+                <h3 class="text-white font-black uppercase tracking-widest text-xs border-b border-gray-800 pb-2 inline-block lg:block">Visítanos</h3>
+                <ul class="space-y-4 text-sm text-gray-400 flex flex-col items-center lg:items-start">
+                    <li class="flex items-start gap-3 group">
+                        <svg class="w-5 h-5 text-orange-500 mt-0.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <span>Dr. Martín Aguirre 4148<br>Villa Española, Montevideo</span>
+                    </li>
+                    <li class="flex items-center gap-3 group">
+                        <svg class="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        <span>+598 9710 4037</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-12">
+            <div class="max-w-3xl mx-auto text-center">
+                
+                <div class="bg-gray-900/50 backdrop-blur-sm p-8 rounded-3xl border border-gray-800 mb-12 relative overflow-hidden group hover:border-gray-700 transition-colors">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-[50px] -mr-10 -mt-10 pointer-events-none"></div>
+                    
+                    <h3 class="text-white font-black uppercase tracking-widest mb-2 text-sm flex items-center justify-center gap-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        Únete al Club Summit
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-6 max-w-md mx-auto">Recibe descuentos exclusivos, invitaciones a eventos VIP y novedades antes que nadie.</p>
+                    
+                    <form @submit.prevent class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                        <input type="email" placeholder="Ingresa tu correo electrónico..." class="flex-grow bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition placeholder-gray-600">
+                        <button class="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white px-6 py-3 rounded-xl font-bold uppercase tracking-wide text-xs transition-all shadow-lg hover:shadow-orange-500/20">
+                            Suscribirme
+                        </button>
+                    </form>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 gap-4">
+                    <p>&copy; {{ new Date().getFullYear() }} Summit Trampoline Park Uruguay. Todos los derechos reservados.</p>
+                    <div class="flex gap-6">
+                        <a href="#" class="hover:text-gray-400 transition">Privacidad</a>
+                        <a href="#" class="hover:text-gray-400 transition">Términos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
     </div>
 </template>

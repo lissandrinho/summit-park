@@ -73,7 +73,7 @@ onMounted(() => {
 
 // --- FORMULARIO ---
 const form = useForm({
-    booking_id: null, // Forzamos null porque en este flujo la reserva se crea DESPUÉS
+    booking_id: null, 
     full_name: '',
     document_id: '',
     email: '',
@@ -86,7 +86,6 @@ const form = useForm({
 
 // --- REGLAS DE NEGOCIO ---
 const canAddMore = computed(() => {
-    // En este flujo, el límite inicial es solo el MAX_MINORS porque no hay reserva aún
     return form.minors.length < MAX_MINORS;
 });
 
@@ -104,6 +103,11 @@ const removeMinor = (index) => {
     form.minors.splice(index, 1);
 };
 
+// CORRECCIÓN DEL CLICK EN TÉRMINOS
+const toggleTerms = () => {
+    form.terms_accepted = !form.terms_accepted;
+};
+
 const submit = () => {
     if (!form.signature) {
         signatureError.value = true;
@@ -111,7 +115,6 @@ const submit = () => {
         if(el) el.scrollIntoView({ behavior: 'smooth' });
         return; 
     }
-    // El Backend redirigirá a 'booking.create'
     form.post(route('waiver.store'), { preserveScroll: true });
 };
 </script>
@@ -253,11 +256,11 @@ const submit = () => {
                                     </div>
                                 </div>
                                 
-                                <div class="flex items-start gap-3 p-4 bg-orange-500/10 rounded-xl border border-orange-500/30 hover:bg-orange-500/20 transition cursor-pointer" @click="document.getElementById('terms').click()">
+                                <div class="flex items-start gap-3 p-4 bg-orange-500/10 rounded-xl border border-orange-500/30 hover:bg-orange-500/20 transition cursor-pointer" @click="toggleTerms">
                                     <div class="flex items-center h-6">
-                                        <input v-model="form.terms_accepted" id="terms" type="checkbox" class="w-5 h-5 rounded border-gray-500 text-orange-600 focus:ring-orange-500 bg-gray-900 cursor-pointer">
+                                        <input v-model="form.terms_accepted" id="terms" type="checkbox" class="w-5 h-5 rounded border-gray-500 text-orange-600 focus:ring-orange-500 bg-gray-900 cursor-pointer pointer-events-none">
                                     </div>
-                                    <label for="terms" class="text-sm text-gray-200 cursor-pointer font-medium select-none">
+                                    <label for="terms" class="text-sm text-gray-200 cursor-pointer font-medium select-none pointer-events-none">
                                         He leído, comprendido y acepto los <span class="text-orange-400 font-bold">Términos y Condiciones</span> expuestos arriba. Certifico que los datos ingresados son reales.
                                     </label>
                                 </div>
