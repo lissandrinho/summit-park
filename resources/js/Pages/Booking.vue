@@ -47,8 +47,6 @@ onMounted(() => {
     updateTotal();
 });
 
-// ... (El resto de tus funciones: availableDates, updateTotal, watch, etc. se mantienen igual)
-// Solo asegúrate de copiar el resto de la lógica que ya tenías aquí abajo.
 const availableDates = computed(() => {
     const dates = [];
     const today = new Date();
@@ -94,8 +92,11 @@ const submitBooking = () => {
     <MainLayout>
         <Head title="Finalizar Reserva" />
 
-        <div class="bg-gray-900 min-h-screen pt-24 pb-32 relative font-sans text-gray-100 overflow-x-hidden">
-            <div class="absolute top-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/10 rounded-full blur-[80px] md:blur-[120px] pointer-events-none"></div>
+        <div class="bg-summit-pattern bg-gray-900 min-h-screen pt-24 pb-32 relative font-sans text-gray-100 overflow-x-hidden">
+            
+            <div class="absolute top-0 inset-x-0 h-[600px] bg-gradient-to-b from-gray-900 via-gray-900/90 to-transparent z-0 pointer-events-none"></div>
+
+            <div class="absolute top-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/10 rounded-full blur-[80px] md:blur-[120px] pointer-events-none z-0"></div>
 
             <div class="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
                 
@@ -187,3 +188,12 @@ const submitBooking = () => {
         </div>
     </MainLayout>
 </template>
+
+<style scoped>
+/* Puntos Pop */
+.bg-summit-pattern {
+    background-color: #111827; /* Gray 900 base */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+</style>

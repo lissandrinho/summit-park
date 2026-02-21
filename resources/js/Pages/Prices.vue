@@ -1,4 +1,4 @@
-<script setup>
+=<script setup>
 import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
@@ -109,7 +109,7 @@ const memberships = [
     <MainLayout>
         <Head title="Precios y Membresías" />
 
-        <div class="bg-gray-900 min-h-screen">
+        <div class="bg-summit-pattern min-h-screen font-sans text-gray-100 selection:bg-orange-500 selection:text-white overflow-x-hidden">
             
             <section class="relative pt-24 pb-48 md:pb-56 overflow-visible">
                 <div class="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 z-0"></div>
@@ -175,7 +175,7 @@ const memberships = [
                                     'relative rounded-3xl p-8 border transition-all duration-300 hover:-translate-y-2 h-full flex flex-col',
                                     plan.highlight 
                                         ? 'bg-gray-800 border-orange-500 shadow-[0_0_40px_rgba(249,115,22,0.15)] transform md:scale-105 z-10' 
-                                        : 'bg-gray-900/50 border-gray-800 hover:border-gray-700'
+                                        : 'bg-gray-900/90 backdrop-blur-md border-gray-800 hover:border-gray-700'
                                 ]"
                             >
                                 <div v-if="plan.highlight" class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-orange-500 text-white px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-lg whitespace-nowrap">
@@ -217,7 +217,7 @@ const memberships = [
                         </div>
                     </transition>
 
-                    <div v-if="!isTicketsView" class="mt-8 text-center bg-gray-800/50 p-4 rounded-xl border border-gray-700/50 animate-in fade-in slide-in-from-bottom-4">
+                    <div v-if="!isTicketsView" class="mt-8 text-center bg-gray-900/90 backdrop-blur-md p-4 rounded-xl border border-gray-700/50 animate-in fade-in slide-in-from-bottom-4">
                         <p class="text-gray-400 text-sm">
                             <span class="text-orange-500 font-bold">*</span> Las membresías requieren tarjeta de crédito y tienen un costo de activación único de $300.
                         </p>
@@ -245,3 +245,12 @@ const memberships = [
         </div>
     </MainLayout>
 </template>
+
+<style scoped>
+/* BACKGROUND POP (Malla de puntos) */
+.bg-summit-pattern {
+    background-color: #111827; /* Gray 900 base */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+</style>

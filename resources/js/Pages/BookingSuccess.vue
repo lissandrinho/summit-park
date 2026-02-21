@@ -36,7 +36,7 @@ const jumpersList = computed(() => {
     <MainLayout>
         <Head title="Reserva Confirmada" />
 
-        <div class="bg-gray-900 min-h-screen flex items-center justify-center p-4 font-sans">
+        <div class="bg-summit-pattern bg-gray-900 min-h-screen flex items-center justify-center p-4 font-sans">
             
             <div class="bg-white text-gray-900 w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden relative border-4 border-gray-800">
                 
@@ -44,7 +44,7 @@ const jumpersList = computed(() => {
                     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent"></div>
                     
                     <div class="relative z-10 mb-4">
-                        <img src="\images\R.png" alt="Mascota Canguro Summit Park" class="w-32 h-auto mx-auto drop-shadow-lg">
+                        <img src="/images/R.png" alt="Mascota Canguro Summit Park" class="w-32 h-auto mx-auto drop-shadow-lg">
                     </div>
                     
                     <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg relative z-10">
@@ -72,7 +72,7 @@ const jumpersList = computed(() => {
                             <span class="font-black text-gray-800">{{ booking.time_slot }}</span>
                         </div>
                         
-                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                        <div class="bg-gray-5 p-3 rounded-lg border border-gray-100">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-gray-400 font-bold text-xs uppercase">Saltadores ({{ booking.jumpers }})</span>
                             </div>
@@ -115,3 +115,12 @@ const jumpersList = computed(() => {
         </div>
     </MainLayout>
 </template>
+
+<style scoped>
+/* ESTILO DE LOS PUNTOS */
+.bg-summit-pattern {
+    background-color: #111827; /* Gray 900 base */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+</style>

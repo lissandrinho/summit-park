@@ -115,7 +115,7 @@ const addons = [
     <MainLayout>
         <Head title="Actividades y Cumpleaños" />
 
-        <div class="bg-gray-900 min-h-screen font-sans text-gray-100 selection:bg-orange-500 selection:text-white overflow-x-hidden">
+        <div class="bg-summit-pattern min-h-screen font-sans text-gray-100 selection:bg-orange-500 selection:text-white overflow-x-hidden">
             
             <section class="relative pt-24 pb-20 md:pt-32 md:pb-32 overflow-visible">
                 <div class="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 z-0"></div>
@@ -143,7 +143,7 @@ const addons = [
                 </div>
             </section>
 
-            <section class="pb-16 md:pb-24 relative z-20 px-4">
+            <section class="pb-16 md:pb-24 relative z-20 px-4 mt-24">
                 <div class="max-w-7xl mx-auto">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         <div v-for="(activity, index) in displayActivities" :key="index" class="group relative rounded-[2rem] overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-2 h-[400px] md:h-[500px] border border-gray-800 hover:border-orange-500/50 bg-gray-800 touch-manipulation">
@@ -170,19 +170,19 @@ const addons = [
                 </div>
             </section>
 
-            <section id="cumpleanos" class="relative py-16 md:py-24 bg-gray-900 overflow-hidden border-t border-gray-800">
+            <section id="cumpleanos" class="relative py-16 md:py-24 overflow-hidden border-t border-gray-800">
                 <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
                 
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
                     
                     <div class="text-center mb-10 md:mb-16">
-                        <span class="inline-block py-1 px-3 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-black uppercase tracking-widest mb-4">
+                        <span class="inline-block py-1 px-3 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-black uppercase tracking-widest mb-4 backdrop-blur-md">
                             Celebraciones Épicas
                         </span>
                         <h2 class="text-3xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4 md:mb-6 leading-tight">
                             Paquetes de <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">Cumpleaños</span>
                         </h2>
-                        <p class="text-gray-400 text-sm max-w-2xl mx-auto border border-gray-700 rounded-lg p-3 bg-gray-800/50">
+                        <p class="text-gray-400 text-sm max-w-2xl mx-auto border border-gray-700 rounded-2xl p-4 bg-gray-800 shadow-lg">
                             <span class="text-orange-500 font-bold">NOTA:</span> Incluyen <strong>2 cupos de adultos acompañantes</strong> (sin servicio).
                             <br>
                             <strong>Adicional:</strong> Niños $600 | Adultos $450
@@ -236,13 +236,13 @@ const addons = [
                         </h3>
                         <div class="flex flex-wrap justify-center gap-2 md:gap-3">
                             <span v-for="addon in addons" :key="addon" 
-                                class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-[10px] font-bold text-gray-400 uppercase hover:text-white hover:border-orange-500 transition cursor-default">
+                                class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-[10px] font-bold text-gray-400 uppercase hover:text-white hover:border-orange-500 transition cursor-default shadow-sm">
                                 {{ addon }}
                             </span>
                         </div>
                     </div>
 
-                    <div class="bg-gray-800/50 rounded-3xl p-6 md:p-8 border border-gray-700/50 text-xs text-gray-400 leading-relaxed">
+                    <div class="bg-gray-800/90 backdrop-blur-sm rounded-3xl p-6 md:p-8 border border-gray-700/50 text-xs text-gray-400 leading-relaxed shadow-xl">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div>
                                 <h4 class="text-white font-bold uppercase mb-3 text-sm flex items-center gap-2">
@@ -288,6 +288,13 @@ const addons = [
 </template>
 
 <style scoped>
+/* ESTILO DEL BACKGROUND POP (Malla de puntos) */
+.bg-summit-pattern {
+    background-color: #111827; /* Gray 900 */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+
 @keyframes gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }

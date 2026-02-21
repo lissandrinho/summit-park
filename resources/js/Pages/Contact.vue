@@ -20,9 +20,9 @@ const submit = () => {
     <MainLayout>
         <Head title="Contacto" />
 
-        <div class="bg-gray-900 min-h-screen relative overflow-hidden">
+        <div class="bg-summit-pattern bg-gray-900 min-h-screen relative overflow-hidden font-sans text-gray-100">
             
-            <div class="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 z-0"></div>
+            <div class="absolute top-0 inset-x-0 h-[600px] bg-gradient-to-b from-gray-900 via-gray-900/90 to-transparent z-0 pointer-events-none"></div>
 
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
             
@@ -39,7 +39,7 @@ const submit = () => {
 
             <section class="pb-16 relative z-10">
                 <div class="max-w-7xl mx-auto px-6">
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="grid lg:grid-cols-2 gap-12 items-start">
                         
                         <div class="space-y-10">
                             
@@ -73,10 +73,8 @@ const submit = () => {
                                     WhatsApp
                                 </a>
                             </div>
-                        </div>
 
-                        <div class="h-[450px] w-full">
-                            <div class="h-full rounded-[2.5rem] overflow-hidden border-4 border-gray-800 shadow-2xl relative group hover:border-orange-500/30 transition-colors duration-500">
+                            <div class="h-[400px] w-full rounded-[2.5rem] overflow-hidden border-4 border-gray-800 shadow-2xl relative group hover:border-orange-500/30 transition-colors duration-500">
                                 <iframe 
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.955376510839!2d-56.13880892424687!3d-34.88256247285641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f810165445209%3A0x6730388d7f261352!2sDr.%20Mart%C3%ADn%20Aguirre%204148%2C%2012000%20Montevideo%2C%20Departamento%20de%20Montevideo!5e0!3m2!1ses-419!2suy!4v1700000000000!5m2!1ses-419!2suy"
                                     width="100%" 
@@ -84,7 +82,8 @@ const submit = () => {
                                     style="border:0;" 
                                     allowfullscreen="" 
                                     loading="lazy" 
-                                    class="grayscale group-hover:grayscale-0 transition duration-700 w-full h-full"
+                                    referrerpolicy="no-referrer-when-downgrade" 
+                                    class="grayscale group-hover:grayscale-0 transition-all duration-700 w-full h-full"
                                 ></iframe>
                                 <div class="absolute bottom-6 left-6 bg-white text-gray-900 px-6 py-3 rounded-full shadow-lg transform transition hover:-translate-y-1">
                                     <p class="font-bold text-xs uppercase tracking-wider flex items-center gap-2">
@@ -95,29 +94,7 @@ const submit = () => {
                             </div>
                         </div>
 
-                    </div>
-                </div>
-            </section>
-
-            <section class="pb-24 mt-10 mb-10 relative z-10">
-                <div class="max-w-6xl mx-auto px-6">
-                    
-                    <div class="grid lg:grid-cols-12 gap-8 items-center">
-                        
-                        <div class="lg:col-span-4 hidden lg:flex justify-center lg:justify-end relative">
-                            <div class="relative z-20 transform translate-x-8 hover:-translate-y-2 transition-transform duration-500">
-                                <img 
-                                    src="/images/R.png" 
-                                    alt="Mascota Summit" 
-                                    class="w-full max-w-xs drop-shadow-2xl filter brightness-110"
-                                />
-                                <div class="absolute -top-10 -right-10 bg-white text-gray-900 px-6 py-3 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl shadow-lg animate-bounce">
-                                    <p class="font-black text-sm uppercase">¡Escríbenos!</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="lg:col-span-8 bg-gray-800 p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-gray-700 relative z-10">
+                        <div class="bg-gray-800 p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-gray-700 relative z-10">
                             
                             <div class="mb-10 border-b border-gray-700 pb-6">
                                 <h3 class="text-3xl font-black text-white uppercase mb-2">Formulario de Contacto</h3>
@@ -159,3 +136,12 @@ const submit = () => {
         </div>
     </MainLayout>
 </template>
+
+<style scoped>
+/* ESTILO DE LOS PUNTOS POP */
+.bg-summit-pattern {
+    background-color: #111827; /* Gray 900 */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+</style>

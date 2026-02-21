@@ -7,9 +7,10 @@ import MainLayout from '@/Layouts/MainLayout.vue';
     <MainLayout>
         <Head title="Reglas del Parque" />
 
-        <div class="bg-gray-900 min-h-screen relative overflow-hidden pb-20">
+        <div class="bg-summit-pattern bg-gray-900 min-h-screen relative overflow-hidden pb-20">
             
-            <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-gray-800 to-gray-900 z-0"></div>
+            <div class="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-gray-900 via-gray-900/90 to-transparent z-0 pointer-events-none"></div>
+
             <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none z-0 translate-x-1/3 -translate-y-1/4"></div>
             <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none z-0 -translate-x-1/4 translate-y-1/4"></div>
 
@@ -130,3 +131,12 @@ import MainLayout from '@/Layouts/MainLayout.vue';
         </div>
     </MainLayout>
 </template>
+
+<style scoped>
+/* ESTILO PUNTOS POP */
+.bg-summit-pattern {
+    background-color: #111827; /* Gray 900 base */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+</style>

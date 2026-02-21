@@ -18,20 +18,21 @@ const submit = () => {
     <MainLayout>
         <Head title="Sobre Nosotros" />
 
-        <div class="bg-gray-900 min-h-screen font-sans text-gray-100">
+        <div class="bg-summit-pattern min-h-screen font-sans text-gray-100 selection:bg-orange-500 selection:text-white">
             
             <section class="relative pt-32 pb-24 overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 z-0"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-900/80 to-transparent z-0"></div>
+                
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-orange-500/10 rounded-[100%] blur-[100px] pointer-events-none z-0 -translate-y-1/2 animate-pulse"></div>
 
                 <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-                    <span class="inline-block py-1 px-3 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-black uppercase tracking-widest mb-4">
+                    <span class="inline-block py-1 px-3 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-black uppercase tracking-widest mb-4 backdrop-blur-sm">
                         Nuestra Historia
                     </span>
                     <h1 class="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6 drop-shadow-xl">
                         SOMOS <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500">SUMMIT</span>
                     </h1>
-                    <p class="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed">
+                    <p class="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed font-medium">
                         Summit es una compañía de trampolines de rápido crecimiento enfocada en Latinoamérica. Con sede en EE.UU., somos las principales instalaciones de salto del mundo.
                     </p>
                 </div>
@@ -43,9 +44,9 @@ const submit = () => {
                     <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                         <div class="relative group">
                             <div class="absolute -inset-4 bg-gradient-to-r from-orange-500 to-red-600 rounded-[2.5rem] opacity-30 blur-lg group-hover:opacity-50 transition duration-700"></div>
-                            <div class="relative h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border border-gray-700">
+                            <div class="relative h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border border-gray-700 bg-gray-800">
                                 <img src="/images/Web-Maincourt2.jpg" alt="Summit Park Team" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700 transform group-hover:scale-105">
-                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
                                 <div class="absolute bottom-8 left-8">
                                     <p class="text-white font-black text-2xl uppercase">Diversión sin límites</p>
                                     <p class="text-orange-400 text-sm font-bold">Desde 2018 en Uruguay</p>
@@ -59,18 +60,18 @@ const submit = () => {
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                                     Nuestra Misión
                                 </h2>
-                                <p class="text-gray-400 leading-relaxed text-lg">
+                                <p class="text-gray-300 leading-relaxed text-lg bg-gray-900/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
                                     Nuestro objetivo es proporcionar un ambiente seguro y emocionante donde personas de todas las edades puedan desafiar sus límites físicos. Les resultará difícil encontrar una experiencia en cualquier otro lugar como la que ofrece SUMMIT.
                                 </p>
                             </div>
                             
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-                                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:border-orange-500/50 transition">
+                                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:border-orange-500/50 transition shadow-lg">
                                     <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4 text-blue-400 text-2xl">🛡️</div>
                                     <h3 class="font-bold text-white uppercase mb-2">Seguridad</h3>
                                     <p class="text-sm text-gray-400">Protocolos estrictos y limpieza exhaustiva instruida por el Ministerio de Salud.</p>
                                 </div>
-                                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:border-orange-500/50 transition">
+                                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:border-orange-500/50 transition shadow-lg">
                                     <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4 text-green-400 text-2xl">😊</div>
                                     <h3 class="font-bold text-white uppercase mb-2">Comunidad</h3>
                                     <p class="text-sm text-gray-400">Un espacio inclusivo para familias, amigos y eventos corporativos.</p>
@@ -150,3 +151,12 @@ const submit = () => {
         </div>
     </MainLayout>
 </template>
+
+<style scoped>
+/* BACKGROUND POP (Malla de puntos) */
+.bg-summit-pattern {
+    background-color: #111827; /* Gray 900 base */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+</style>

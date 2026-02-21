@@ -123,9 +123,12 @@ const submit = () => {
     <MainLayout>
         <Head title="Waiver Seguro" />
 
-        <div class="bg-gray-900 min-h-screen pt-24 pb-24 relative overflow-hidden font-sans text-white">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-800 via-gray-900 to-black opacity-80 pointer-events-none"></div>
+        <div class="bg-summit-pattern bg-gray-900 min-h-screen pt-24 pb-24 relative overflow-hidden font-sans text-white">
             
+            <div class="absolute top-0 inset-x-0 h-[600px] bg-gradient-to-b from-gray-900 via-gray-900/90 to-transparent z-0 pointer-events-none"></div>
+            
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[800px] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
             <div class="max-w-3xl mx-auto px-6 relative z-10">
                 <div class="bg-gray-800/90 backdrop-blur-xl rounded-[2rem] border border-gray-700 shadow-2xl overflow-hidden">
                     <div class="h-2 w-full bg-gradient-to-r from-orange-500 via-red-500 to-orange-500"></div>
@@ -287,6 +290,13 @@ const submit = () => {
 </template>
 
 <style scoped>
+/* ESTILO DE LOS PUNTOS */
+.bg-summit-pattern {
+    background-color: #111827;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+}
+
 .custom-scrollbar::-webkit-scrollbar { width: 8px; }
 .custom-scrollbar::-webkit-scrollbar-track { background: #0f1115; border-radius: 4px; }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; border: 1px solid #1f2937; }
